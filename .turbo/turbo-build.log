@@ -1,0 +1,27 @@
+
+
+> igloo-home@0.1.0 build
+> next build
+
+[?25l- [36minfo[39m Linting and checking validity of types [36m.[39m[32mWe detected TypeScript in your project and reconfigured your [1mtsconfig.json[22m file for you. Strict-mode is set to [1mfalse[22m by default.[39m
+
+The following suggested values were added to your [36mtsconfig.json[39m. These values [1mcan be changed[22m to fit your project's needs:
+
+	- [36mforceConsistentCasingInFileNames[39m was set to [1mtrue[22m
+
+[2K[1G- [36minfo[39m Linting and checking validity of types [36m..[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m...[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m.[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m..[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m...[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m.[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m..[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m...[39m[2K[1G- [36minfo[39m Linting and checking validity of types [36m.[39m[31mFailed to compile.[39m
+[31m[39m
+[36m./src/components/ChainMenuItem.tsx[39m:[33m2[39m:[33m37[39m
+[31m[1mType error[22m[39m: Cannot find module '@/helpers/chains' or its corresponding type declarations.
+
+[0m [90m 1 | [39m[36mimport[39m [33mReact[39m [36mfrom[39m [32m"react"[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 2 | [39m[36mimport[39m { [33mChain[39m[33m,[39m getChainIcon } [36mfrom[39m [32m"@/helpers/chains"[39m[33m;[39m[0m
+[0m [90m   | [39m                                    [31m[1m^[22m[39m[0m
+[0m [90m 3 | [39m[36mimport[39m [33mImage[39m [36mfrom[39m [32m"next/image"[39m[33m;[39m[0m
+[0m [90m 4 | [39m[0m
+[0m [90m 5 | [39m[36minterface[39m [33mChainMenuItemProps[39m {[0m
+[?25h[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mLifecycle script `build` failed with error:[0m 
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mError: command failed[0m 
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35m  in workspace: igloo-home@0.1.0[0m 
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35m  at location: /Users/rabbit-m2/p/snowball/snowball-ts-sdk/app-showcase/iglootools-home[0m 
+[0m

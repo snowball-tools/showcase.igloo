@@ -1,0 +1,56 @@
+@import "normalize.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./fonts/fonts.css";
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --vh: calc(
+    100vh - (var(--safe-area-inset-top) + var(--safe-area-inset-bottom))
+  );
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: white;
+  background: #131313;
+  overflow: hidden;
+}
+
+@layer base {
+  @keyframes blink {
+    0%,
+    49% {
+      opacity: 0;
+    }
+    50%,
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-blink {
+    animation: blink 1s linear infinite;
+  }
+
+  html {
+    font-family: "Orelega_One", "SF_Pro_Text", "SF_Pro_Display";
+  }
+}
+
+.circle {
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+}

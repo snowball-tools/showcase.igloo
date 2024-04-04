@@ -1,0 +1,7 @@
+/* Medium */
+@font-face {
+  font-family: "SF_Mono";
+  src: url("SF-Mono-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
