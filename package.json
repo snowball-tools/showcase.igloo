@@ -7,7 +7,7 @@
     "email": "viv@snowballtools.xyz"
   },
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build-showcase": "next build",

@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const webpack = require("webpack");
 module.exports = {
-  // transpilePackages: ["@repo/ui"],
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   webpack: (config, options) => {
