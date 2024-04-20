@@ -32,7 +32,7 @@ export default function AuthView() {
     dispatch(setView(AuthViews.REGISTERING))
 
     try {
-      await snowball.auth.register(username)
+      await snowball.auth.passkey.register(username)
 
       dispatch(setView(AuthViews.MINTED))
     } catch (error) {
@@ -48,9 +48,9 @@ export default function AuthView() {
     dispatch(setView(AuthViews.AUTHENTICATING))
 
     try {
-      await snowball.auth.authenticate()
+      await snowball.auth.passkey.authenticate()
 
-      const address = await snowball.getSmartWalletAddress()
+      const address = await snowball.getSmartWalletAddress('passkey')
 
       dispatch(authenticated(address))
     } catch (error) {

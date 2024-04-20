@@ -49,7 +49,7 @@ const WalletView = ({}: WalletViewProps) => {
         )
       }
 
-      const smartWallet = await snowball.getSmartWallet()
+      const smartWallet = await snowball.getSmartWallet('passkey')
       const address = await smartWallet.getAddress()
       const result = await smartWallet.sendUserOp({
         target: iglooNFTAddress,

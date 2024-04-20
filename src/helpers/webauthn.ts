@@ -5,11 +5,11 @@ import { LinkLitAlchemyLight } from '@snowballtools/link-lit-alchemy-light'
 // prettier-ignore
 
 export const snowball = Snowball
-  .withAuth(
-    LitPasskeyAuth.configure({
-      litReplayApiKey: process.env.NEXT_PUBLIC_LIT_RELAY_API_KEY!
+  .withAuth({
+    passkey: LitPasskeyAuth.configure({
+      litRelayApiKey: process.env.NEXT_PUBLIC_LIT_RELAY_API_KEY!
     }),
-  )
+  })
   .withSmartWallet(
     LinkLitAlchemyLight.pkpEthersWallet.configure({
       alchemyApiKeys: {
