@@ -16,6 +16,7 @@ import { IglooNFTABI } from '../../helpers/abis/IglooNFTABI'
 import track from '../../helpers/analytics'
 import { logErrorMsg, logInfo } from '../../helpers/bugsnag'
 import { IGLOO_NFT_ADDRESSES } from '../../helpers/chains'
+import { alchemyApiKey_sepolia } from '../../helpers/constants'
 import { snowball } from '../../helpers/webauthn'
 import {
   AuthViews,
@@ -61,7 +62,7 @@ const WalletView = ({}: WalletViewProps) => {
       })
 
       const alchemy = new Alchemy({
-        apiKey: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API_KEY!,
+        apiKey: alchemyApiKey_sepolia,
         network: currentAppChain.toAlchemyNetwork(),
       })
 

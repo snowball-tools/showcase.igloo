@@ -4,6 +4,9 @@
 
 ```
 yarn install
+cp .env-example .env
+
+# Then fill out .env
 ```
 
 ## Development

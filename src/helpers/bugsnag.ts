@@ -3,11 +3,14 @@ import BugsnagPluginReact, { BugsnagErrorBoundary } from '@bugsnag/plugin-react'
 import { track } from '@vercel/analytics/server'
 import React from 'react'
 
-import { IS_DEBUG } from './constants'
+import { BUGSNAG_ENABLED, IS_DEBUG } from './constants'
 
 export let ErrorBoundary: BugsnagErrorBoundary
 
 export function start() {
+  if (!BUGSNAG_ENABLED) {
+    return
+  }
   if (ErrorBoundary) {
     IS_DEBUG ? console.log('Bugsnag already started') : null
     return
@@ -28,35 +31,35 @@ export function logInfo(where: string, message: string) {
   IS_DEBUG
     ? console.log(`[logInfo][where: ${where}] ${message}`)
     : track(`[logInfo][where: ${where}] ${message}`)
-  Bugsnag.addMetadata('log', where, message)
+  BUGSNAG_ENABLED && Bugsnag.addMetadata('log', where, message)
 }
 
 export function logWarning(message: string) {
   IS_DEBUG ? console.warn(`[logWarning] ${message}`) : null
-  Bugsnag.notify(new Error(message))
+  BUGSNAG_ENABLED && Bugsnag.notify(new Error(message))
 }
 
 export function logErrorMsg(message: string) {
   IS_DEBUG ? console.error(`[logErrorMsg] ${message}`) : null
-  Bugsnag.notify(new Error(message))
+  BUGSNAG_ENABLED && Bugsnag.notify(new Error(message))
 }
 
 export function logMetadata(about: string, key: string, value: string) {
   IS_DEBUG ? console.log(`[logMetadata][about: ${about}] ${key}: ${value}`) : null
-  Bugsnag.addMetadata(about, key, value)
+  BUGSNAG_ENABLED && Bugsnag.addMetadata(about, key, value)
 }
 
 export function logError(error: Error) {
   IS_DEBUG ? console.error(`[logError] ${JSON.stringify(error)}`) : null
-  Bugsnag.notify(error)
+  BUGSNAG_ENABLED && Bugsnag.notify(error)
 }
 
 export function startSession() {
   IS_DEBUG ? console.log(`[startSession] debug`) : null
-  Bugsnag.startSession()
+  BUGSNAG_ENABLED && Bugsnag.startSession()
 }
 
 export function logUser(id: string, username: string) {
   IS_DEBUG ? console.log(`[logUser] ${id}: ${username}`) : track(`[logUser] ${id}: ${username}`)
-  Bugsnag.setUser(id, username)
+  BUGSNAG_ENABLED && Bugsnag.setUser(id, username)
 }

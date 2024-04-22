@@ -2,20 +2,17 @@ import { LitPasskeyAuth } from '@snowballtools/auth-lit'
 import { Snowball, SnowballChain } from '@snowballtools/js-sdk'
 import { LinkLitAlchemyLight } from '@snowballtools/link-lit-alchemy-light'
 
-// prettier-ignore
+import { alchemyApiKey_sepolia, alchemyGasPolicyId_sepolia, litRelayApiKey } from './constants'
 
-export const snowball = Snowball
-  .withAuth({
-    passkey: LitPasskeyAuth.configure({
-      litRelayApiKey: process.env.NEXT_PUBLIC_LIT_RELAY_API_KEY!
-    }),
-  })
+export const snowball = Snowball.withAuth({
+  passkey: LitPasskeyAuth.configure({ litRelayApiKey }),
+})
   .withSmartWallet(
     LinkLitAlchemyLight.pkpEthersWallet.configure({
       alchemyApiKeys: {
         [SnowballChain.sepolia.chainId]: {
-          apiKey: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_API_KEY!,
-          gasPolicyId: process.env.NEXT_PUBLIC_ALCHEMY_SEPOLIA_GAS_POLICY_ID,
+          apiKey: alchemyApiKey_sepolia,
+          gasPolicyId: alchemyGasPolicyId_sepolia,
         },
       },
     }),
