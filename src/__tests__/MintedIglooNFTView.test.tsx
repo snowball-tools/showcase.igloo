@@ -1,7 +1,8 @@
+import { SnowballChain } from '@snowballtools/js-sdk'
+
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
-import { CHAINS } from '../helpers/chains'
 import MintedIglooNFTView from '../pages/Views/MintedIglooNFTView'
 
 describe('MintedIglooNFTView', () => {
@@ -10,7 +11,7 @@ describe('MintedIglooNFTView', () => {
 
   const props = {
     nftLabel: 'Igloo #172',
-    chain: CHAINS.goerli,
+    chain: SnowballChain.goerli,
     openInOpenSeaAction: mockOpenInOpenSeaAction,
     returnToWalletAction: mockReturnToWalletAction,
   }
@@ -19,7 +20,7 @@ describe('MintedIglooNFTView', () => {
     const { getByText } = render(
       <MintedIglooNFTView
         nftLabel="Igloo #172"
-        chain={CHAINS.goerli}
+        chain={SnowballChain.goerli}
         primaryActionAfterMint={mockOpenInOpenSeaAction}
         returnToWalletAction={mockReturnToWalletAction}
       />,
@@ -33,7 +34,7 @@ describe('MintedIglooNFTView', () => {
     const { getByText } = render(
       <MintedIglooNFTView
         nftLabel="Igloo #172"
-        chain={CHAINS.goerli}
+        chain={SnowballChain.goerli}
         primaryActionAfterMint={mockOpenInOpenSeaAction}
         returnToWalletAction={mockReturnToWalletAction}
       />,
@@ -49,7 +50,7 @@ describe('MintedIglooNFTView', () => {
     const { getByText } = render(
       <MintedIglooNFTView
         nftLabel="Igloo #172"
-        chain={CHAINS.goerli}
+        chain={SnowballChain.goerli}
         primaryActionAfterMint={mockOpenInOpenSeaAction}
         returnToWalletAction={mockReturnToWalletAction}
       />,
