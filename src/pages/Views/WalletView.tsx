@@ -61,6 +61,10 @@ const WalletView = ({}: WalletViewProps) => {
         }),
       })
 
+      console.log('Waiting for user operation transaction')
+      await smartWallet.waitForUserOperationTransaction({ hash: result.hash })
+
+      console.log('Fetching NFTs')
       const alchemy = new Alchemy({
         apiKey: alchemyApiKey_sepolia,
         network: currentAppChain.toAlchemyNetwork(),
