@@ -2,7 +2,7 @@
 
 import { SnowballError } from '@snowballtools/types'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Header from '../../components/Header'
@@ -10,7 +10,7 @@ import LoadingAnimation from '../../components/LoadingAnimation'
 import StickyButtonGroup from '../../components/StickyButtonGroup'
 import track from '../../helpers/analytics'
 import { logErrorMsg } from '../../helpers/bugsnag'
-import { snowball } from '../../helpers/webauthn'
+import { useSnowball } from '../../helpers/webauthn'
 import {
   AuthViews,
   authenticated,
@@ -26,6 +26,7 @@ export default function AuthView() {
   const [username, setUsername] = React.useState('')
   const { view, errorMsg } = useSelector((state: RootState) => state.credentials)
   const dispatch = useDispatch()
+  const snowball = useSnowball()
 
   async function createPKPWithWebAuthn() {
     track('Signup Start')

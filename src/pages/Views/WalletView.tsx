@@ -3,7 +3,7 @@
 import { SnowballChain } from '@snowballtools/js-sdk'
 
 import { Alchemy, NftOrdering, OwnedNftsResponse } from 'alchemy-sdk'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Address, encodeFunctionData } from 'viem'
 
@@ -17,28 +17,22 @@ import track from '../../helpers/analytics'
 import { logErrorMsg, logInfo } from '../../helpers/bugsnag'
 import { IGLOO_NFT_ADDRESSES } from '../../helpers/chains'
 import { alchemyApiKey_sepolia } from '../../helpers/constants'
-import { snowball } from '../../helpers/webauthn'
-import {
-  AuthViews,
-  disconnect,
-  setErrorMsg,
-  setMintedNFT,
-  setView,
-  switchChain,
-} from '../../store/credentialsSlice'
+import { useSnowball } from '../../helpers/webauthn'
+import { AuthViews, setErrorMsg, setMintedNFT, setView } from '../../store/credentialsSlice'
 import { RootState } from '../../store/store'
 import MintedIglooNFTView from './MintedIglooNFTView'
 
 export interface WalletViewProps {}
 
 const WalletView = ({}: WalletViewProps) => {
-  const { view, currentAppChainId, appChains, ethAddress, nftId, userOpHash } = useSelector(
+  const { view, appChains, nftId, userOpHash, ethAddress } = useSelector(
     (state: RootState) => state.credentials,
   )
+
+  const snowball = useSnowball()
   const dispatch = useDispatch()
 
-  const currentAppChain = SnowballChain.byChainId.get(currentAppChainId)!
-  const iglooNFTAddress = IGLOO_NFT_ADDRESSES.get(currentAppChain.chainId)
+  const iglooNFTAddress = IGLOO_NFT_ADDRESSES.get(snowball.chain.chainId)
 
   async function sendUserOp() {
     logInfo('sendUserOp view', 'Sending user operation')
@@ -46,7 +40,7 @@ const WalletView = ({}: WalletViewProps) => {
     try {
       if (!iglooNFTAddress) {
         throw new Error(
-          `No IglooNFT address for chain ${currentAppChain.name} (${currentAppChain.chainId})`,
+          `No IglooNFT address for chain ${snowball.chain.name} (${snowball.chain.chainId})`,
         )
       }
 
@@ -67,7 +61,7 @@ const WalletView = ({}: WalletViewProps) => {
       console.log('Fetching NFTs')
       const alchemy = new Alchemy({
         apiKey: alchemyApiKey_sepolia,
-        network: currentAppChain.toAlchemyNetwork(),
+        network: snowball.chain.toAlchemyNetwork(),
       })
 
       // theres a better more accurate way to do this...
@@ -104,7 +98,6 @@ const WalletView = ({}: WalletViewProps) => {
 
   function changeChain(newChain: SnowballChain) {
     snowball.switchChain(newChain)
-    dispatch(switchChain(newChain))
   }
 
   if (view === AuthViews.IGLOO_NFT_MINTED) {
@@ -112,12 +105,12 @@ const WalletView = ({}: WalletViewProps) => {
     return (
       <MintedIglooNFTView
         nftLabel={nftId ? `IglooNFT #${nftId}` : 'IglooNFT'}
-        chain={currentAppChain}
+        chain={snowball.chain}
         primaryActionAfterMint={() =>
           window.open(
             nftId
-              ? `https://testnets.opensea.io/assets/${currentAppChain.name.toLowerCase()}/${iglooNFTAddress}/${nftId}`
-              : `https://www.jiffyscan.xyz/userOpHash/${userOpHash}?network=${currentAppChain.name.toLowerCase()}`,
+              ? `https://testnets.opensea.io/assets/${snowball.chain.name.toLowerCase()}/${iglooNFTAddress}/${nftId}`
+              : `https://www.jiffyscan.xyz/userOpHash/${userOpHash}?network=${snowball.chain.name.toLowerCase()}`,
             '_blank',
           )
         }
@@ -139,8 +132,11 @@ const WalletView = ({}: WalletViewProps) => {
   return (
     <div className="flex flex-col gap-2">
       <NavBar
-        exitAction={() => dispatch(disconnect())}
-        currentChain={currentAppChain}
+        exitAction={() => {
+          snowball.session?.logout()
+          dispatch(setView(AuthViews.INITIAL_VIEW))
+        }}
+        currentChain={snowball.chain}
         supportedChains={appChains}
         switchChainAction={(newChain) => changeChain(newChain)}
       />
@@ -172,7 +168,7 @@ const WalletView = ({}: WalletViewProps) => {
             color="bg-[#00d4ff]"
             textColor="text-black"
             onClick={() =>
-              window.open(`${currentAppChain.blockExplorerUrls[0]}/address/${ethAddress}`, '_blank')
+              window.open(`${snowball.chain.blockExplorerUrls[0]}/address/${ethAddress}`, '_blank')
             }
           />
         </div>

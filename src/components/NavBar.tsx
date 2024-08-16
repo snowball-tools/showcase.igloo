@@ -22,7 +22,7 @@ const NavBar = ({ currentChain, supportedChains, switchChainAction, exitAction }
     <Image
       src="rectangle_portrait_and_arrow_right.svg"
       alt="exit button"
-      className="h-5 w-5"
+      className="h-5 w-5 cursor-pointer"
       width={20}
       height={20}
       onClick={exitAction}

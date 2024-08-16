@@ -1,21 +1,17 @@
 import { browserSupportsWebAuthn } from '@simplewebauthn/browser'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 
 import TestView from '../components/TestView'
 import track from '../helpers/analytics'
-import { disconnect } from '../store/credentialsSlice'
-import { RootState } from '../store/store'
+import { useSnowball } from '../helpers/webauthn'
 import AuthView from './Views/AuthView'
 import BrowserUnsupportedView from './Views/BrowserUnsupportedView'
 import WalletView from './Views/WalletView'
 
 const Home = () => {
-  const { isAuthenticated, sessionExpiration } = useSelector(
-    (state: RootState) => state.credentials,
-  )
-  const dispatch = useDispatch()
+  const snowball = useSnowball()
+  const isAuthenticated = !!snowball.session?.getSessionExpirationTime()
 
   const [isWebAuthnSupported, setIsWebAuthnSupported] = useState(true)
 
@@ -23,20 +19,6 @@ const Home = () => {
     const supported = browserSupportsWebAuthn() && !navigator.userAgent.includes('Firefox')
     setIsWebAuthnSupported(supported)
   }, [])
-
-  useEffect(() => {
-    async function checkSession() {
-      if (sessionExpiration) {
-        const sessionDate = new Date(sessionExpiration)
-        const now = new Date()
-        if (sessionDate < now) {
-          dispatch(disconnect())
-        }
-      }
-    }
-
-    checkSession()
-  }, [sessionExpiration, dispatch])
 
   if (!isWebAuthnSupported) {
     return <BrowserUnsupportedView />
