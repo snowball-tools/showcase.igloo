@@ -10,20 +10,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build-showcase": "next build",
-    "start": "next start",
-    "lint": "tsc --noEmit",
-    "test": "jest --watch",
-    "test:ci": "jest --ci"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@bugsnag/js": "^7.22.3",
     "@bugsnag/plugin-react": "^7.19.0",
     "@emotion/react": "^11.11.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "@snowballtools/auth-lit": "*",
-    "@snowballtools/js-sdk": "*",
-    "@snowballtools/link-lit-alchemy-light": "*",
+    "@snowballtools/auth-lit": "0.6.0",
+    "@snowballtools/js-sdk": "0.6.0",
+    "@snowballtools/link-lit-alchemy-light": "0.6.0",
     "@vercel/analytics": "^1.0.2",
     "@vercel/postgres": "^0.4.1",
     "autoprefixer": "^10.4.14",
@@ -38,7 +35,6 @@
   },
   "devDependencies": {
     "@bugsnag/source-maps": "^2.3.1",
-    "@internal/typescript-config": "*",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",

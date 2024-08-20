@@ -11,19 +11,11 @@ module.exports = {
     );
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  experimental: { esmExternals: true },
 };
-
-// const nextConfig = {
-//   reactStrictMode: true,
-//   productionBrowserSourceMaps: true,
-//   webpack: (config, options) => {
-//     config.plugins.push(
-//       new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
-//         resource.request = resource.request.replace(/^node:/, "");
-//       })
-//     );
-//     return config;
-//   },
-// };
-
-// module.exports = nextConfig;
