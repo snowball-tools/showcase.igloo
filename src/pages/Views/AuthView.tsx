@@ -111,7 +111,10 @@ export default function AuthView() {
               buttons={[
                 {
                   label: 'Try again',
-                  onClick: () => dispatch(disconnect()),
+                  onClick: () => {
+                    dispatch(disconnect())
+                    window.location.reload()
+                  },
                   bgColor: 'bg-cyan-200',
                   textColor: 'text-black',
                   disabledColor: 'disabled:bg-disabled-gray disabled:text-white/10',
