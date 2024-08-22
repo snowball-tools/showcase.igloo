@@ -97,6 +97,16 @@ export default function AuthView() {
         return (
           <>
             <Header infoView={view} errorMsg={errorMsg ?? ''} />
+            <div className="flex-col justify-center items-start gap-7 inline-flex">
+              <div className="self-stretch text-white text-2xl font-bold leading-7 tracking-tight font-sf_pro_display">
+                Note:
+              </div>
+              <div className="self-stretch text-white text-opacity-60 text-base font-normal leading-tight font-sf_pro_text">
+                If you created your passkey BEFORE Aug 21st, 2024, then you created it on a previous
+                version of Lit. Please create a new passkey instead.
+              </div>
+            </div>
+
             <StickyButtonGroup
               buttons={[
                 {
